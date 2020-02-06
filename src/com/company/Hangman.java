@@ -12,12 +12,11 @@ public class Hangman {
 	    System.out.print("Please enter a word: ");
 	    Hangman_Word = input.nextLine();
 	    System.err.println(Hangman_Word);
-	    int forloop = 1;
 	    int CountOfWord = Hangman_Word.length()-1;
 	    for(int i = 0; i < CountOfWord;i++) {
 	    	if(i <= CountOfWord) {
 	    		if(Hangman_Word.equals(" ")) {
-
+					Hangman_Word.replace(' ', '#');
 				}
 
 
