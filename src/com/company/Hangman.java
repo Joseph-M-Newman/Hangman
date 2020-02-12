@@ -1,5 +1,16 @@
+/**
+ * @author Joseph Newman
+ * @since 2/8/20
+ * discription:
+ * Write a Java program called Hangman.java that reads a word (or a phrase)
+ * from a user and plays the hangman game. In the assignment,
+ * you can assume that the word (or a phrase) from a user is all
+ * capitals in a single line.
+ * The user will type only alphabet letters and blank spaces.
+ */
 package com.company;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.util.Scanner;
 
 public class Hangman {
@@ -7,57 +18,60 @@ public class Hangman {
 	public static void main(String[] args) {
 		String Hangman_Word = "";
 		int Guesses = 10;
-		String newHangmanWord = "";
 		Scanner input = new Scanner(System.in);
 		System.out.println("----------Welcome to Hangman!----------");
 		System.out.print("Please enter a word: ");
 		Hangman_Word = input.nextLine();
-
-		int CountOfWord = Hangman_Word.length() - 1;
 		String newWord = Hangman_Word.replaceAll("\\S", "_");
-		System.err.println(newWord); // check if the word is being displayed properly; Not needed to
+		System.out.println(newWord); // check if the word is being displayed properly; Not needed to
 		// always be displayed, for debugging;
-		HangMan(Hangman_Word);
-
+		HangMan(Hangman_Word + " ");
 	}
 	public static void HangMan(String Word) {
-		int Guesses = 0;
+		int Guesses = 5;
+		int counter = 0;
+		int hint = 2;
 		String Hangman_Word = Word;
 		String newWord = Hangman_Word.replaceAll("\\S", "_");
+		//Final word is the guessing input
 		char[] FinalWord = newWord.toCharArray();
 		Scanner input = new Scanner(System.in);
 		int LastChar = Hangman_Word.length();
-
+		System.err.println(LastChar);
 		System.out.print("Guess a letter in the word! ");
 		String temp = input.nextLine();
+		//World list is the actual Char List; Compare it to final, but display neword;
 		char[] WordList = new char[LastChar];
 		for(int i = 0; i < LastChar; i++) {
 			WordList[i] = Hangman_Word.charAt(i);
 		}
+		boolean active = true;
 		char Guess = temp.charAt(0);
-		char tempLetter = Guess;
-		int Current_Position;
-		System.err.println(Guess);
-		while(Guesses != LastChar){
+		while(active == true){
 			if(Guesses != 0) {
+				System.out.println("you have " + Guesses + " and " + hint + " hints left");
 				System.out.print("Enter another Guess: ");
-				temp = input.nextLine();
-				Guess = temp.charAt(0);
+
+				Guess = input.next().charAt(0);
 			}
 			for(int i = 0; i < LastChar; i++){
 				if(Guess == WordList[i]) {
-					System.out.println(Guess + " is in the word!");
-					Current_Position = i;
 					FinalWord[i] = Guess;
 					System.out.println(FinalWord);
-					System.out.println(FinalWord);
-					System.out.print("Enter another Guess: ");
-					Guesses++;
-					//for loop to check if the word is completed out not.. (Check for _);
+					counter++;
 
 				}
+
+			}
+			if(counter > 0) {
+				System.out.println("Nice! " + Guess + " Is in the word! ");
 			}
 
+				if(Guesses == 0) {
+					active = false;
+				}
+
 		}
+		System.out.println("Congrats on completing the game! GG");
 	}
 }
