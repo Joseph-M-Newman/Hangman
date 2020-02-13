@@ -38,39 +38,56 @@ public class Hangman {
 		Scanner input = new Scanner(System.in);
 		int LastChar = Hangman_Word.length();
 		System.err.println(LastChar);
-		System.out.print("Guess a letter in the word! ");
-		String temp = input.nextLine();
+
+		char Guess;
 		//World list is the actual Char List; Compare it to final, but display neword;
 		char[] WordList = new char[LastChar];
 		for(int i = 0; i < LastChar; i++) {
 			WordList[i] = Hangman_Word.charAt(i);
 		}
+		String comp2 = "";
 		boolean active = true;
-		char Guess = temp.charAt(0);
-		while(active == true){
-			if(Guesses != 0) {
-				System.out.println("you have " + Guesses + " and " + hint + " hints left");
-				System.out.print("Enter another Guess: ");
+		comp2 = Hangman_Word;
+		String comp1 = new String(FinalWord);
 
-				Guess = input.next().charAt(0);
+		while(active == true){
+			System.out.println(Guesses + " THIS IS THE COUNTER;");
+
+			if(Guesses == -1) {
+				active = false;
+				break;
 			}
+			if(comp1.equals(comp2)) {
+
+				System.out.println("I got here jrbfeqi");
+				active = false;
+				break;
+			}
+			if(Guesses >= 1){
+			System.out.println("you have " + Guesses + " and " + hint + " hints left");}
+			else {
+				System.out.println("Last guess Goodluck");
+			}
+			System.out.print("Enter another Guess: ");
+			Guess = input.next().charAt(0);
+
+			System.err.println(comp1 + " " + comp2);
+
 			for(int i = 0; i < LastChar; i++){
 				if(Guess == WordList[i]) {
-					FinalWord[i] = Guess;
+					(FinalWord[i]) = Guess;
 					System.out.println(FinalWord);
 					counter++;
-
 				}
-
 			}
 			if(counter > 0) {
 				System.out.println("Nice! " + Guess + " Is in the word! ");
 			}
-
-				if(Guesses == 0) {
-					active = false;
-				}
-
+			if(counter == 0) {
+				Guesses--;
+			}
+			comp1 = new String(FinalWord);
+			counter = 0;
 		}
 		System.out.println("Congrats on completing the game! GG");
 	}
